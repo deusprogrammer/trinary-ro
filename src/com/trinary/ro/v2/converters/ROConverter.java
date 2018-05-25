@@ -1,12 +1,20 @@
-package com.trinary.ro.converter;
+package com.trinary.ro.v2.converters;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.UriInfo;
+
 public abstract class ROConverter<RO, ENTITY> {
+	protected UriInfo uriInfo;
+	
 	protected abstract ENTITY _convertRO(RO ro);
 	protected abstract RO _convertEntity(ENTITY entity);
 	protected abstract RO _addLinks(RO object);
+	
+	public ROConverter(UriInfo uriInfo) {
+		this.uriInfo = uriInfo;
+	}
 	
 	public RO convertEntity(ENTITY entity) {
 		if (entity == null) {
@@ -54,4 +62,9 @@ public abstract class ROConverter<RO, ENTITY> {
 		}
 		return entityList;
 	}
+	
+	public UriInfo getUriInfo() {
+		return uriInfo;
+	}
+	
 }
